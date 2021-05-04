@@ -9,5 +9,4 @@ public class PreInstaKartApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PreInstaKartApplication.class, args);
 	}
-
 }

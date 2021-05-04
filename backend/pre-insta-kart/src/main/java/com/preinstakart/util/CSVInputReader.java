@@ -1,12 +1,11 @@
 package com.preinstakart.util;
 
-import static com.walmart.hackathon.preinstamart.util.Utility.*;
-import static com.walmart.hackathon.preinstamart.util.Utility.getElementSafe;
-import static com.walmart.hackathon.preinstamart.util.Utility.trimSafe;
+
+import static com.preinstakart.util.Utility.trimSafe;
 
 import com.opencsv.CSVReader;
-import com.walmart.hackathon.preinstamart.dto.ImportSession;
-import com.walmart.hackathon.preinstamart.dto.Item;
+import com.preinstakart.dto.ImportSession;
+import com.preinstakart.dto.Item;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,6 +16,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import static com.preinstakart.util.Utility.*;
 
 @Slf4j
 @Component

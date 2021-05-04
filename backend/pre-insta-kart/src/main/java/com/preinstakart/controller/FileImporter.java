@@ -1,7 +1,12 @@
 package com.preinstakart.controller;
 
-import com.walmart.hackathon.preinstamart.dto.ImportSession;
-import com.walmart.hackathon.preinstamart.service.FileImporterImpl;
+import com.preinstakart.dto.ImportSession;
+import com.preinstakart.dto.Item;
+import com.preinstakart.entity.ItemEntity;
+import com.preinstakart.service.FileImporterImpl;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -24,21 +29,27 @@ public class FileImporter {
 
   @PostMapping(path = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @ResponseBody
-  public ImportSession processInputBlobFile(
+  public Map<Integer, List<ItemEntity>> processInputBlobFile(
       @RequestParam("file") @Valid @NotNull MultipartFile blobFile) {
 
     ImportSession response = null;
+    Map<Integer, List<ItemEntity>> result = null;
     try {
       String fileName = blobFile.getOriginalFilename();
       response = fileImporterImpl.response(blobFile.getInputStream());
       System.out.println(fileName);
-
+      result = new HashMap<>();
+      int index = 1;
+      for(Item item : response.data) {
+        final String itemName = item.getItemName().replaceAll(" ", "");
+        final List<ItemEntity> itemEntity = fileImporterImpl.getItems();
+        result.put(index, itemEntity);
+        index++;
+      }
     } catch (Exception e) {
       String errorMsg = "Exception While processing Input File, Reason [ " + e.getLocalizedMessage() + "]";
       log.error(errorMsg);
     }
-    return response;
+    return result;
   }
-
-
 }
